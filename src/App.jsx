@@ -1,4 +1,5 @@
 import "./index.css";
+import Logo from "./images/logo.svg";
 
 function App() {
   return (
@@ -7,11 +8,7 @@ function App() {
         <body class="main">
           <div className="page">
             <header className="header">
-              <img
-                src="./images/logo.svg"
-                alt="Место"
-                className="header__logo"
-              />
+              <img src={Logo} alt="Место" className="header__logo" />
             </header>
             <main className="content">
               <section className="profile">
