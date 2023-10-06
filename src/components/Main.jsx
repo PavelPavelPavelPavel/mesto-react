@@ -1,31 +1,18 @@
-// const handleEditAvatarClick = () => {
-//   const avatar = document.querySelector(".popup_edit_avatar");
-//   console.log(avatar);
-//   avatar.classList.add("popup_opened");
-// };
+import React from "react";
+// import PopupEditAvatar from "./PopupEditAvatar";
+// import PopupConfirmDeleteCard from "./PopupConfirmDeleteCard";
+// import PopupEditCard from "./PopupEditCard";
+// import PopupEditProfile from "./PopupEditProfile";
+// import PopupWithImage from "./PopupWithImage";
+//import PopupWithForm from "./PopupWithForm";
 
-// const handleEditProfileClick = () => {
-//   const profile = document.querySelector(".popup_edit_form");
-//   console.log(profile);
-//   profile.classList.add("popup_opened");
-// };
-
-// const handleAddPlaceClick = () => {
-//   const card = document.querySelector(".popup_edit_cards");
-//   console.log(card);
-//   card.classList.add("popup_opened");
-// };
-
-function Main() {
+function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__info">
           <div className="profile__avatar">
-            <button
-              className="profile__avatar-btn"
-              //onClick={handleEditAvatarClick}
-            >
+            <button className="profile__avatar-btn" onClick={onEditAvatar}>
               <img
                 src="#"
                 alt="Аватар пользователя"
@@ -39,7 +26,7 @@ function Main() {
               aria-label="Кнопка редактирования профиля"
               type="button"
               className="profile__button"
-              //onClick={handleEditProfileClick}
+              onClick={onEditProfile}
             ></button>
             <p className="profile__work"></p>
           </div>
@@ -48,22 +35,10 @@ function Main() {
           aria-label="Кнопка добавления фото"
           type="button"
           className="profile__add-button"
-          //onClick={handleAddPlaceClick}
+          onClick={onAddPlace}
         ></button>
       </section>
       <section className="elements"></section>
-
-      <div className="popup popup_edit_img">
-        <figure className="popup__figure popup__figure-image">
-          <button
-            aria-label="Кнопка закрытия попапа"
-            type="button"
-            className="popup__button-close"
-          ></button>
-          <img src="#" alt="" className="popup__img" />
-          <figcaption className="popup__caption"></figcaption>
-        </figure>
-      </div>
     </main>
   );
 }
