@@ -18,7 +18,7 @@ function PopupWithForm({
             aria-label="Кнопка закрытия попапа"
             type="button"
             className="popup__button-close"
-            //onClick={console.log("click")}
+            onClick={onClose}
           ></button>
           <div className={`popup__form popup__form_edit_${name}`}>
             <h2 className="popup__title">{`${title}`}</h2>

@@ -8,18 +8,22 @@ import api from "../utils/Api";
 // import PopupWithForm from "./PopupWithForm";
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
+  const [userName, setUserName] = React.useState("");
+  const [userDescription, setUserDescription] = React.useState("");
+  const [userAvatar, setUserAvatar] = React.useState("");
+  const [cards, setCards] = React.useState({});
   React.useEffect(() => {
-    Promise.all([api.getInfo()])
-      .then(([res]) => {
+    Promise.all([api.getInfo(), api.getInfoCards()])
+      .then(([res, cards]) => {
         setUserName(res.name);
         setUserDescription(res.about);
         setUserAvatar(res.avatar);
+        setCards(cards);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [userName, userDescription, userAvatar]);
+
+  //console.log(cards);
 
   return (
     <main className="content">
@@ -28,10 +32,9 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
           <div className="profile__avatar">
             <button className="profile__avatar-btn" onClick={onEditAvatar}>
               <img
-                //src={`url(${userAvatar})`}
+                src={`${userAvatar}`}
                 alt="Аватар пользователя"
                 className="profile__avatar-img"
-                style={{ backgroundImage: `url(${userAvatar})` }}
               />
             </button>
           </div>

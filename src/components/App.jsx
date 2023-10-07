@@ -10,15 +10,16 @@ import PopupEditProfile from "./PopupEditProfile";
 import PopupWithForm from "./PopupWithForm";
 
 function App() {
-  const [isEditProfilePopupOpen, setisEditProfilePopupOpen] =
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
-  const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] =
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
-  const [closeAllPopups, setCloseAllPopups] = React.useState();
 
   function handleClose() {
-    console.log("click");
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
   }
 
   return (
@@ -28,23 +29,20 @@ function App() {
           <div className="page">
             <Header />
             <Main
-              onAddPlace={setisAddPlacePopupOpen}
-              onEditAvatar={setisEditAvatarPopupOpen}
-              onEditProfile={setisEditProfilePopupOpen}
+              onAddPlace={setIsAddPlacePopupOpen}
+              onEditAvatar={setIsEditAvatarPopupOpen}
+              onEditProfile={setIsEditProfilePopupOpen}
             />
             <Footer />
-            <PopupWithForm setCloseAllPopups={handleClose} />
+            {/* <PopupWithForm onClose={handleClose} /> */}
             <PopupEditAvatar
               isOpen={isEditAvatarPopupOpen}
-              onClose={closeAllPopups}
+              onClose={handleClose}
             />
-            <PopupEditCard
-              isOpen={isAddPlacePopupOpen}
-              onClose={closeAllPopups}
-            />
+            <PopupEditCard isOpen={isAddPlacePopupOpen} onClose={handleClose} />
             <PopupEditProfile
               isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
+              onClose={handleClose}
             />
             <PopupConfirmDeleteCard />
           </div>
