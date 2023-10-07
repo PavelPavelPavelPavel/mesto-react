@@ -1,12 +1,13 @@
 import PopupWithForm from "./PopupWithForm";
 
-function PopupEditCard({ isOpen }) {
+function PopupEditCard({ isOpen, onClose }) {
   return (
     <PopupWithForm
       name="cards"
       title="Новое место"
       buttonText="Создать"
       isOpen={isOpen}
+      onClose={onClose}
     >
       <input
         id="input-place"

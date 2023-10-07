@@ -4,22 +4,21 @@ function PopupWithForm({
   buttonText,
   isOpen,
   onClose,
-  setClosePopups,
+  setCloseAllPopups,
   children,
 }) {
   return (
     <>
       <div
-        className={`popup popup_edit_${name} ${isOpen ? "popup_opened" : ""} ${
-          onClose ? "popup_opened" : ""
-        }`}
+        className={`popup popup_edit_${name} ${isOpen ? "popup_opened" : ""}
+        `}
       >
         <div className="popup__container">
           <button
             aria-label="Кнопка закрытия попапа"
             type="button"
             className="popup__button-close"
-            onClick={setClosePopups}
+            //onClick={console.log("click")}
           ></button>
           <div className={`popup__form popup__form_edit_${name}`}>
             <h2 className="popup__title">{`${title}`}</h2>
@@ -31,6 +30,7 @@ function PopupWithForm({
               <button
                 type="submit"
                 className={`popup__button popup__button-${name}`}
+                //onClick={console.log("submit")}
               >
                 {buttonText}
               </button>

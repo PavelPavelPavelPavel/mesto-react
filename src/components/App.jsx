@@ -8,7 +8,6 @@ import PopupConfirmDeleteCard from "./PopupConfirmDeleteCard";
 import PopupEditCard from "./PopupEditCard";
 import PopupEditProfile from "./PopupEditProfile";
 import PopupWithForm from "./PopupWithForm";
-import PopupWithImage from "./PopupWithImage";
 
 function App() {
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] =
@@ -16,12 +15,16 @@ function App() {
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] =
     React.useState(false);
-  const [closeAllPopups, setCloseAllPopups] = React.useState("");
+  const [closeAllPopups, setCloseAllPopups] = React.useState();
+
+  function handleClose() {
+    console.log("click");
+  }
 
   return (
     <>
       <div className="App">
-        <body class="main">
+        <div className="main">
           <div className="page">
             <Header />
             <Main
@@ -30,16 +33,22 @@ function App() {
               onEditProfile={setisEditProfilePopupOpen}
             />
             <Footer />
-            <PopupWithForm
+            <PopupWithForm setCloseAllPopups={handleClose} />
+            <PopupEditAvatar
+              isOpen={isEditAvatarPopupOpen}
               onClose={closeAllPopups}
-              setClosePopups={setCloseAllPopups}
             />
-            <PopupEditAvatar isOpen={isEditAvatarPopupOpen} />
-            <PopupEditCard isOpen={isAddPlacePopupOpen} />
-            <PopupEditProfile isOpen={isEditProfilePopupOpen} />
+            <PopupEditCard
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+            />
+            <PopupEditProfile
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+            />
             <PopupConfirmDeleteCard />
           </div>
-        </body>
+        </div>
       </div>
     </>
   );
