@@ -7,7 +7,7 @@ import PopupEditAvatar from "./PopupEditAvatar";
 import PopupConfirmDeleteCard from "./PopupConfirmDeleteCard";
 import PopupEditCard from "./PopupEditCard";
 import PopupEditProfile from "./PopupEditProfile";
-import PopupWithImage from "./PopupWithImage";
+import ImagePopup from "./ImagePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -25,7 +25,7 @@ function App() {
     setSelectedCard({ state: true, name: `${name}`, link: `${link}` });
   }
 
-  function handleClose() {
+  function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -43,19 +43,22 @@ function App() {
               onEditAvatar={setIsEditAvatarPopupOpen}
               onEditProfile={setIsEditProfilePopupOpen}
               onCardClick={handleCardClick}
-              onClose={handleClose}
+              onClose={closeAllPopups}
             />
             <Footer />
           </div>
         </div>
-        <PopupEditAvatar isOpen={isEditAvatarPopupOpen} onClose={handleClose} />
-        <PopupEditCard isOpen={isAddPlacePopupOpen} onClose={handleClose} />
+        <PopupEditAvatar
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+        />
+        <PopupEditCard isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
         <PopupEditProfile
           isOpen={isEditProfilePopupOpen}
-          onClose={handleClose}
+          onClose={closeAllPopups}
         />
         <PopupConfirmDeleteCard />
-        <PopupWithImage card={selectedCard} onClose={handleClose} />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
     </>
   );

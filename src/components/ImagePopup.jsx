@@ -1,4 +1,4 @@
-function PopupWithImage({ card, onClose }) {
+function ImagePopup({ card, onClose }) {
   return (
     <div className={`popup popup_edit_img ${card.state ? "popup_opened" : ""}`}>
       <figure className="popup__figure popup__figure-image">
@@ -15,4 +15,4 @@ function PopupWithImage({ card, onClose }) {
   );
 }
 
-export default PopupWithImage;
+export default ImagePopup;
