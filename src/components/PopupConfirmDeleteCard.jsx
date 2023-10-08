@@ -1,14 +1,8 @@
 import PopupWithForm from "./PopupWithForm";
 
-function PopupConfirmDeleteCard(/*{ isOpen, onClose }*/) {
+function PopupConfirmDeleteCard() {
   return (
-    <PopupWithForm
-      name="delete-cards"
-      title="Вы уверены?"
-      buttonText="Да"
-      //  isOpen={isOpen}
-      // onClose={onClose}
-    />
+    <PopupWithForm name="delete-cards" title="Вы уверены?" buttonText="Да" />
   );
 }
 

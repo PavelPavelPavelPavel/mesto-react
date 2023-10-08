@@ -7,7 +7,7 @@ import PopupEditAvatar from "./PopupEditAvatar";
 import PopupConfirmDeleteCard from "./PopupConfirmDeleteCard";
 import PopupEditCard from "./PopupEditCard";
 import PopupEditProfile from "./PopupEditProfile";
-import PopupWithForm from "./PopupWithForm";
+import PopupWithImage from "./PopupWithImage";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -15,11 +15,21 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({
+    state: false,
+    name: "",
+    link: "",
+  });
+
+  function handleCardClick({ name, link }) {
+    setSelectedCard({ state: true, name: `${name}`, link: `${link}` });
+  }
 
   function handleClose() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -32,21 +42,20 @@ function App() {
               onAddPlace={setIsAddPlacePopupOpen}
               onEditAvatar={setIsEditAvatarPopupOpen}
               onEditProfile={setIsEditProfilePopupOpen}
+              onCardClick={handleCardClick}
+              onClose={handleClose}
             />
             <Footer />
-            {/* <PopupWithForm onClose={handleClose} /> */}
-            <PopupEditAvatar
-              isOpen={isEditAvatarPopupOpen}
-              onClose={handleClose}
-            />
-            <PopupEditCard isOpen={isAddPlacePopupOpen} onClose={handleClose} />
-            <PopupEditProfile
-              isOpen={isEditProfilePopupOpen}
-              onClose={handleClose}
-            />
-            <PopupConfirmDeleteCard />
           </div>
         </div>
+        <PopupEditAvatar isOpen={isEditAvatarPopupOpen} onClose={handleClose} />
+        <PopupEditCard isOpen={isAddPlacePopupOpen} onClose={handleClose} />
+        <PopupEditProfile
+          isOpen={isEditProfilePopupOpen}
+          onClose={handleClose}
+        />
+        <PopupConfirmDeleteCard />
+        <PopupWithImage card={selectedCard} onClose={handleClose} />
       </div>
     </>
   );

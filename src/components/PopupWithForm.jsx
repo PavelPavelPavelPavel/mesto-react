@@ -1,12 +1,4 @@
-function PopupWithForm({
-  name,
-  title,
-  buttonText,
-  isOpen,
-  onClose,
-  setCloseAllPopups,
-  children,
-}) {
+function PopupWithForm({ name, title, buttonText, isOpen, onClose, children }) {
   return (
     <>
       <div
@@ -30,7 +22,6 @@ function PopupWithForm({
               <button
                 type="submit"
                 className={`popup__button popup__button-${name}`}
-                //onClick={console.log("submit")}
               >
                 {buttonText}
               </button>

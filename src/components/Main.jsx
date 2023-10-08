@@ -1,29 +1,28 @@
 import React from "react";
 import api from "../utils/Api";
-// import PopupEditAvatar from "./PopupEditAvatar";
-// import PopupConfirmDeleteCard from "./PopupConfirmDeleteCard";
-// import PopupEditCard from "./PopupEditCard";
-// import PopupEditProfile from "./PopupEditProfile";
-// import PopupWithImage from "./PopupWithImage";
-// import PopupWithForm from "./PopupWithForm";
+import Card from "./Card";
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState({});
+  const [cards, setCards] = React.useState([]);
   React.useEffect(() => {
-    Promise.all([api.getInfo(), api.getInfoCards()])
-      .then(([res, cards]) => {
+    Promise.all([api.getInfo()])
+      .then(([res]) => {
         setUserName(res.name);
         setUserDescription(res.about);
         setUserAvatar(res.avatar);
-        setCards(cards);
       })
       .catch((err) => console.log(err));
-  }, [userName, userDescription, userAvatar]);
+  }, []);
 
-  //console.log(cards);
+  React.useEffect(() => {
+    api
+      .getInfoCards()
+      .then((card) => setCards(card))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <main className="content">
@@ -56,7 +55,19 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
           onClick={onAddPlace}
         ></button>
       </section>
-      <section className="elements"></section>
+      <section className="elements">
+        {cards.map((card) => {
+          return (
+            <Card
+              key={card._id}
+              link={card.link}
+              name={card.name}
+              likes={card.likes.length}
+              onCardClick={onCardClick}
+            />
+          );
+        })}
+      </section>
     </main>
   );
 }
