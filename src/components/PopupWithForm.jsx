@@ -1,4 +1,17 @@
-function PopupWithForm({ name, title, buttonText, isOpen, onClose, children }) {
+function PopupWithForm({
+  name,
+  title,
+  buttonText,
+  isOpen,
+  onClose,
+  children,
+  onSubmit,
+}) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit();
+    onClose();
+  }
   return (
     <>
       <div
@@ -17,6 +30,7 @@ function PopupWithForm({ name, title, buttonText, isOpen, onClose, children }) {
             <form
               name={`${name}`}
               className="popup__input-wrapper popup__input-profile"
+              onSubmit={handleSubmit}
             >
               {children}
               <button

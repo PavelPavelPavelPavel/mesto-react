@@ -43,7 +43,7 @@ class Api {
     });
   }
 
-  setUserData(inputs) {
+  setUserData({ name, about }) {
     return this._sendRequest(`${this._mainUrl}users/me`, {
       method: "PATCH",
       headers: {
@@ -51,13 +51,13 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: `${inputs.name}`,
-        about: `${inputs.job}`,
+        name: `${name}`,
+        about: `${about}`,
       }),
     });
   }
 
-  setUserAvatar(inputAvatar) {
+  setUserAvatar(avatar) {
     return this._sendRequest(`${this._mainUrl}users/me/avatar`, {
       method: "PATCH",
       headers: {
@@ -65,7 +65,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        avatar: inputAvatar,
+        avatar: avatar,
       }),
     });
   }
