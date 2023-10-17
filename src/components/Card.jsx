@@ -1,15 +1,13 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Card({ userCardId, link, name, likes, card }) {
+function Card({ userCardId, link, name, likes }) {
   const { currentUser, handleCardClick } = useContext(CurrentUserContext);
   const isOwn = userCardId === currentUser._id;
   const isLiked = likes.some((i) => i._id === currentUser._id);
   const cardLikeButtonClassName = `element__button-like ${
     isLiked && "element__button-like_active"
   }`;
-
-  const handleLikeClick = () => {};
 
   return (
     <article className="element">
@@ -26,7 +24,7 @@ function Card({ userCardId, link, name, likes, card }) {
           <button
             type="button"
             className={cardLikeButtonClassName}
-            onClick={handleLikeClick}
+            // onClick={handleLikeClick}
           ></button>
           <div className="element__like-counter">{likes.length}</div>
         </div>

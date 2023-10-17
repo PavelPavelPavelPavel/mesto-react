@@ -3,8 +3,15 @@ import Card from "./Card";
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
-  const { currentUser, cards } = useContext(CurrentUserContext);
+function Main({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardLike,
+  onCardDelete,
+  cards,
+}) {
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <main className="content">
@@ -45,7 +52,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
               link={card.link}
               name={card.name}
               likes={card.likes}
-              card={card}
               userCardId={card.owner._id}
             />
           );

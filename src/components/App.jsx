@@ -7,7 +7,7 @@ import Main from "./Main";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupEditAvatar from "./PopupEditAvatar";
 import PopupConfirmDeleteCard from "./PopupConfirmDeleteCard";
-import PopupEditCard from "./PopupEditCard";
+import AddPlacePopup from "./AddPlacePopup";
 import PopupEditProfile from "./PopupEditProfile";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/Api";
@@ -33,15 +33,34 @@ function App() {
   }, []);
 
   function handleUpdateUser({ name, about }) {
-    api.setUserData({ name, about }).then((res) => {
-      setCurrentUser(res);
-    });
+    api
+      .setUserData(name, about)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => console.log(err));
   }
 
+  function handleAddPlaceSubmit(newCard) {
+    api
+      .setNewCard(newCard.link, newCard.name)
+      .then((res) => {
+        setCards([res, ...cards]);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleCardLike() {}
+
+  function handleCardDelete() {}
+
   function handleUpdateAvatar({ avatar }) {
-    api.setUserAvatar(avatar).then((res) => {
-      setCurrentUser(res);
-    });
+    api
+      .setUserAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => console.log(err));
   }
   function handleCardClick({ name, link }) {
     setSelectedCard({
@@ -75,7 +94,9 @@ function App() {
                 onAddPlace={setIsAddPlacePopupOpen}
                 onEditAvatar={setIsEditAvatarPopupOpen}
                 onEditProfile={setIsEditProfilePopupOpen}
-                onClose={closeAllPopups}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+                cards={cards}
               />
               <Footer />
             </div>
@@ -85,9 +106,10 @@ function App() {
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
           />
-          <PopupEditCard
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
           />
           <PopupEditProfile
             isOpen={isEditProfilePopupOpen}

@@ -29,7 +29,7 @@ class Api {
     });
   }
 
-  setNewCard(inputs) {
+  setNewCard(link, name) {
     return this._sendRequest(`${this._mainUrl}cards`, {
       method: "POST",
       headers: {
@@ -37,13 +37,13 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        link: `${inputs.link}`,
-        name: `${inputs.name}`,
+        link: `${link}`,
+        name: `${name}`,
       }),
     });
   }
 
-  setUserData({ name, about }) {
+  setUserData(name, about) {
     return this._sendRequest(`${this._mainUrl}users/me`, {
       method: "PATCH",
       headers: {

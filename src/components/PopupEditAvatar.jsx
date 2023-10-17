@@ -1,34 +1,35 @@
 import PopupWithForm from "./PopupWithForm";
 import React from "react";
-import { useState, useContext, useEffect, useRef } from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
+import { useRef, useContext } from "react";
 
 function PopupEditAvatar({ isOpen, onClose, onUpdateAvatar }) {
-  const { currentUser } = useContext(CurrentUserContext);
   const avatarRef = useRef();
-  useEffect(() => {
-    console.log(avatarRef);
-  }, []);
-  //console.log(avatarRef);
+
   function handleSubmit() {
     onUpdateAvatar({
-      avatar: avatarRef,
+      avatar: avatarRef.current.value,
     });
-    console.log(avatarRef);
   }
+
+  function handleClose() {
+    onClose();
+    avatarRef.current.value = "";
+  }
+
   return (
     <PopupWithForm
       name="avatar"
       title="Обновить аватар"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       onSubmit={handleSubmit}
     >
       <input
         id="input-url-avatar"
-        ref={avatarRef}
         type="url"
         name="link"
+        ref={avatarRef}
         required
         className="popup__value popup__value_field_url"
         placeholder="URL"

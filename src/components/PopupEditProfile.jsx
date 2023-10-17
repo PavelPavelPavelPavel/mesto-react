@@ -19,12 +19,18 @@ function PopupEditProfile({ isOpen, onClose, onUpdateUser }) {
     });
   }
 
+  function handleClose() {
+    onClose();
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }
+
   return (
     <PopupWithForm
       name="profile"
       title="Редактировать профиль"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       onSubmit={handleSubmit}
     >
       <input
@@ -37,6 +43,7 @@ function PopupEditProfile({ isOpen, onClose, onUpdateUser }) {
         className="popup__value popup__value_field_name"
         placeholder="Name"
       />
+
       <span id="input-name-error" className="popup__error"></span>
       <input
         id="input-job"
