@@ -8,6 +8,7 @@ function Main({
   onAddPlace,
   onEditAvatar,
   onCardLike,
+  onCardDisLike,
   onCardDelete,
   cards,
 }) {
@@ -49,10 +50,14 @@ function Main({
           return (
             <Card
               key={card._id}
+              id={card._id}
               link={card.link}
               name={card.name}
               likes={card.likes}
               userCardId={card.owner._id}
+              onCardLike={onCardLike}
+              onCardDisLike={onCardDisLike}
+              onCardDelete={onCardDelete}
             />
           );
         })}

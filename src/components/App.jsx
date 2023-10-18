@@ -50,9 +50,41 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleCardLike() {}
+  function handleCardLike(id, likes) {
+    const isLiked = likes.some((i) => i._id === currentUser._id);
 
-  function handleCardDelete() {}
+    api.addLikeToCard(id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
+    });
+  }
+
+  function handleCardDislike(id, likes) {
+    const isLiked = likes.some((i) => i._id === currentUser._id);
+
+    api.deleteResponseLike(id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
+    });
+  }
+
+  function handleCardDelete(id) {
+    api
+      .deleteResponse(id)
+      .then(() => {
+        const res = cards.filter((card) => {
+          return card._id !== id;
+        });
+        setCards(res);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleCardClick({ name, link }) {
+    setSelectedCard({
+      state: true,
+      name: `${name}`,
+      link: `${link}`,
+    });
+  }
 
   function handleUpdateAvatar({ avatar }) {
     api
@@ -61,13 +93,6 @@ function App() {
         setCurrentUser(res);
       })
       .catch((err) => console.log(err));
-  }
-  function handleCardClick({ name, link }) {
-    setSelectedCard({
-      state: true,
-      name: `${name}`,
-      link: `${link}`,
-    });
   }
 
   function closeAllPopups() {
@@ -95,6 +120,7 @@ function App() {
                 onEditAvatar={setIsEditAvatarPopupOpen}
                 onEditProfile={setIsEditProfilePopupOpen}
                 onCardLike={handleCardLike}
+                onCardDisLike={handleCardDislike}
                 onCardDelete={handleCardDelete}
                 cards={cards}
               />

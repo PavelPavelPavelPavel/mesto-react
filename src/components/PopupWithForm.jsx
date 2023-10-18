@@ -26,7 +26,7 @@ function PopupWithForm({
             onClick={onClose}
           ></button>
           <div className={`popup__form popup__form_edit_${name}`}>
-            <h2 className="popup__title">{`${title}`}</h2>
+            <h2 className="popup__title">{title}</h2>
             <form
               name={`${name}`}
               className="popup__input-wrapper popup__input-profile"
