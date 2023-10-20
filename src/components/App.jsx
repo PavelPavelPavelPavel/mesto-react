@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import "../index.css";
 import Header from "./Header";
@@ -55,15 +54,21 @@ function App() {
   }
 
   function handleCardLike(id, isLiked) {
-    api.addLikeToCard(id, !isLiked).then((newCard) => {
-      handleApiLikeRequest(id, newCard);
-    });
+    api
+      .addLikeToCard(id, !isLiked)
+      .then((newCard) => {
+        handleApiLikeRequest(id, newCard);
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleCardDislike(id, isLiked) {
-    api.deleteResponseLike(id, !isLiked).then((newCard) => {
-      handleApiLikeRequest(id, newCard);
-    });
+    api
+      .deleteResponseLike(id, !isLiked)
+      .then((newCard) => {
+        handleApiLikeRequest(id, newCard);
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleCardDelete(id) {
