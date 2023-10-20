@@ -18,10 +18,10 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({
     state: false,
-    name: "",
-    link: "",
+    name: " ",
+    link: " ",
   });
-  const [currentUser, setCurrentUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
   const [cards, setCards] = useState([]);
   useEffect(() => {
     Promise.all([api.getInfo(), api.getInfoCards()])
@@ -50,19 +50,19 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleCardLike(id, likes) {
-    const isLiked = likes.some((i) => i._id === currentUser._id);
+  function handleApiLikeRequest(id, newCard) {
+    setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
+  }
 
+  function handleCardLike(id, isLiked) {
     api.addLikeToCard(id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
+      handleApiLikeRequest(id, newCard);
     });
   }
 
-  function handleCardDislike(id, likes) {
-    const isLiked = likes.some((i) => i._id === currentUser._id);
-
+  function handleCardDislike(id, isLiked) {
     api.deleteResponseLike(id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
+      handleApiLikeRequest(id, newCard);
     });
   }
 
@@ -99,7 +99,11 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard({});
+    setSelectedCard({
+      state: false,
+      name: " ",
+      link: " ",
+    });
   }
 
   return (

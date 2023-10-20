@@ -2,8 +2,8 @@ import PopupWithForm from "./PopupWithForm";
 import { useRef } from "react";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const placeRef = useRef();
-  const linkRef = useRef();
+  const placeRef = useRef(null);
+  const linkRef = useRef(null);
   function handleSubmit() {
     onAddPlace({
       link: linkRef.current.value,

@@ -1,10 +1,10 @@
 import PopupWithForm from "./PopupWithForm";
 import React from "react";
 
-import { useRef, useContext } from "react";
+import { useRef } from "react";
 
 function PopupEditAvatar({ isOpen, onClose, onUpdateAvatar }) {
-  const avatarRef = useRef();
+  const avatarRef = useRef(null);
 
   function handleSubmit() {
     onUpdateAvatar({

@@ -21,21 +21,21 @@ function Main({
           <div className="profile__avatar">
             <button className="profile__avatar-btn" onClick={onEditAvatar}>
               <img
-                src={`${currentUser.avatar}`}
+                src={`${currentUser.avatar || ""}`}
                 alt="Аватар пользователя"
                 className="profile__avatar-img"
               />
             </button>
           </div>
           <div className="profile__info-text">
-            <h1 className="profile__name">{`${currentUser.name}`}</h1>
+            <h1 className="profile__name">{`${currentUser.name || ""}`}</h1>
             <button
               aria-label="Кнопка редактирования профиля"
               type="button"
               className="profile__button"
               onClick={onEditProfile}
             ></button>
-            <p className="profile__work">{`${currentUser.about}`}</p>
+            <p className="profile__work">{`${currentUser.about || ""}`}</p>
           </div>
         </div>
         <button

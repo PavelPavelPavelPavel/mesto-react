@@ -19,12 +19,11 @@ function Card({
   }`;
 
   function handleLikeClick() {
-    onCardLike(id, likes);
-    // console.log();
+    onCardLike(id, isLiked);
   }
 
   function handleDisLikeClick() {
-    onCardDisLike(id, likes);
+    onCardDisLike(id, isLiked);
   }
 
   function handleDeleteClick() {
