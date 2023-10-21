@@ -1,14 +1,19 @@
 import PopupWithForm from "./PopupWithForm";
 import { useRef } from "react";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoadBtn }) {
   const placeRef = useRef(null);
   const linkRef = useRef(null);
+
   function handleSubmit() {
-    onAddPlace({
-      link: linkRef.current.value,
-      name: placeRef.current.value,
-    });
+    onAddPlace(
+      {
+        link: linkRef.current.value,
+        name: placeRef.current.value,
+      },
+      placeRef,
+      linkRef
+    );
   }
   function handleClose() {
     onClose();
@@ -23,6 +28,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       isOpen={isOpen}
       onClose={handleClose}
       onSubmit={handleSubmit}
+      isLoadBtn={isLoadBtn}
     >
       <input
         id="input-place"

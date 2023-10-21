@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
-function PopupEditProfile({ isOpen, onClose, onUpdateUser }) {
+function PopupEditProfile({ isOpen, onClose, onUpdateUser, isLoadBtn }) {
   const { currentUser } = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -33,6 +33,7 @@ function PopupEditProfile({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={handleClose}
       onSubmit={handleSubmit}
+      isLoadBtn={isLoadBtn}
     >
       <input
         id="input-name"

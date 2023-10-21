@@ -6,12 +6,13 @@ function PopupWithForm({
   onClose,
   children,
   onSubmit,
+  isLoadBtn,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit();
-    onClose();
   }
+
   return (
     <>
       <div
@@ -37,7 +38,7 @@ function PopupWithForm({
                 type="submit"
                 className={`popup__button popup__button-${name}`}
               >
-                {buttonText || "Сохранить"}
+                {isLoadBtn || buttonText || "Сохранить"}
               </button>
             </form>
           </div>

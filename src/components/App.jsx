@@ -22,6 +22,7 @@ function App() {
   });
   const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
   const [cards, setCards] = useState([]);
+  const [btnTextLoad, setBtnTextLoad] = useState("");
   useEffect(() => {
     Promise.all([api.getInfo(), api.getInfoCards()])
       .then(([res, card]) => {
@@ -32,21 +33,34 @@ function App() {
   }, []);
 
   function handleUpdateUser({ name, about }) {
+    setBtnTextLoad("Сохранение...");
     api
       .setUserData(name, about)
       .then((res) => {
         setCurrentUser(res);
+        setIsEditProfilePopupOpen(false);
       })
-      .catch((err) => console.log(err));
+
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setBtnTextLoad("");
+      });
   }
 
-  function handleAddPlaceSubmit(newCard) {
+  function handleAddPlaceSubmit(newCard, placeRef, linkRef) {
+    setBtnTextLoad("Создаём...");
     api
       .setNewCard(newCard.link, newCard.name)
       .then((res) => {
         setCards([res, ...cards]);
+        setIsAddPlacePopupOpen(false);
+        placeRef.current.value = "";
+        linkRef.current.value = "";
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setBtnTextLoad("");
+      });
   }
 
   function handleApiLikeRequest(id, newCard) {
@@ -91,13 +105,19 @@ function App() {
     });
   }
 
-  function handleUpdateAvatar({ avatar }) {
+  function handleUpdateAvatar({ avatar }, avatarRef) {
+    setBtnTextLoad("Сохранение...");
     api
       .setUserAvatar(avatar)
       .then((res) => {
         setCurrentUser(res);
+        setIsEditAvatarPopupOpen(false);
+        avatarRef.current.value = "";
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setBtnTextLoad("");
+      });
   }
 
   function closeAllPopups() {
@@ -140,16 +160,19 @@ function App() {
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            isLoadBtn={btnTextLoad}
           />
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
+            isLoadBtn={btnTextLoad}
           />
           <PopupEditProfile
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+            isLoadBtn={btnTextLoad}
           />
           <PopupConfirmDeleteCard />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />

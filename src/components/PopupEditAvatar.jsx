@@ -3,13 +3,16 @@ import React from "react";
 
 import { useRef } from "react";
 
-function PopupEditAvatar({ isOpen, onClose, onUpdateAvatar }) {
+function PopupEditAvatar({ isOpen, onClose, onUpdateAvatar, isLoadBtn }) {
   const avatarRef = useRef(null);
 
   function handleSubmit() {
-    onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    });
+    onUpdateAvatar(
+      {
+        avatar: avatarRef.current.value,
+      },
+      avatarRef
+    );
   }
 
   function handleClose() {
@@ -24,6 +27,7 @@ function PopupEditAvatar({ isOpen, onClose, onUpdateAvatar }) {
       isOpen={isOpen}
       onClose={handleClose}
       onSubmit={handleSubmit}
+      isLoadBtn={isLoadBtn}
     >
       <input
         id="input-url-avatar"
