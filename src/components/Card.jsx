@@ -9,7 +9,7 @@ function Card({
   likes,
   onCardLike,
   onCardDisLike,
-  onCardDelete,
+  onConfirmPopup,
 }) {
   const { currentUser, handleCardClick } = useContext(CurrentUserContext);
   const isOwn = userCardId === currentUser._id;
@@ -27,13 +27,14 @@ function Card({
   }
 
   function handleDeleteClick() {
-    onCardDelete(id);
+    onConfirmPopup(id);
   }
 
   return (
     <article className="element">
       {isOwn && (
         <button
+          type="button"
           className="element__button-delete"
           onClick={handleDeleteClick}
         />

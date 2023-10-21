@@ -12,9 +12,12 @@ import ImagePopup from "./ImagePopup";
 import api from "../utils/Api";
 
 function App() {
+  const [cardId, setCardId] = useState("");
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isConfirmDeleteCardPopupOpen, setIsConfirmDeleteCardPopupOpen] =
+    useState(false);
   const [selectedCard, setSelectedCard] = useState({
     state: false,
     name: " ",
@@ -86,6 +89,7 @@ function App() {
   }
 
   function handleCardDelete(id) {
+    setBtnTextLoad("Удаляем...");
     api
       .deleteResponse(id)
       .then(() => {
@@ -93,8 +97,12 @@ function App() {
           return card._id !== id;
         });
         setCards(res);
+        setIsConfirmDeleteCardPopupOpen(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setBtnTextLoad("");
+      });
   }
 
   function handleCardClick({ name, link }) {
@@ -124,11 +132,16 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsConfirmDeleteCardPopupOpen(false);
     setSelectedCard({
       state: false,
       name: " ",
       link: " ",
     });
+  }
+  function handleConfirmDeletePopupOpen(id) {
+    setIsConfirmDeleteCardPopupOpen(true);
+    setCardId(id);
   }
 
   return (
@@ -150,8 +163,8 @@ function App() {
                 onEditProfile={setIsEditProfilePopupOpen}
                 onCardLike={handleCardLike}
                 onCardDisLike={handleCardDislike}
-                onCardDelete={handleCardDelete}
                 cards={cards}
+                onConfirmPopup={handleConfirmDeletePopupOpen}
               />
               <Footer />
             </div>
@@ -174,7 +187,13 @@ function App() {
             onUpdateUser={handleUpdateUser}
             isLoadBtn={btnTextLoad}
           />
-          <PopupConfirmDeleteCard />
+          <PopupConfirmDeleteCard
+            isOpen={isConfirmDeleteCardPopupOpen}
+            onClose={closeAllPopups}
+            onCardDelete={handleCardDelete}
+            id={cardId}
+            isLoadBtn={btnTextLoad}
+          />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
       </CurrentUserContext.Provider>
