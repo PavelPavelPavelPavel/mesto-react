@@ -10,6 +10,7 @@ function PopupConfirmDeleteCard({
   function handleSubmit() {
     onCardDelete(id);
   }
+
   return (
     <PopupWithForm
       onClose={onClose}
